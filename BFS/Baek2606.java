@@ -3,51 +3,52 @@ import java.util.*;
 
 public class Baek2606 {
 	
-    static int[][] network;
-    static int[] check;
-    static int answer = 0;
-    
+    static int[][] net;
+    static boolean[] check;
+    static int cnt;
+	
 	public static void main(String[] args) throws IOException {
-		
-        Scanner input = new Scanner(System.in);
-        int computer = input.nextInt();
-        int conn = input.nextInt();
+			
+       	    Scanner sc = new Scanner(System.in);
         
-        network = new int[computer+1][computer+1];
-        check = new int[computer+1];
+            int computer = sc.nextInt();
+            int conn = sc.nextInt();
         
-        for(int i = 0; i < conn; i++) {
+            net = new int[computer+1][computer+1];
+            check = new boolean[computer+1];
+            for(int i = 0; i<conn; i++) {        	
+        	int x = sc.nextInt();
+        	int y = sc.nextInt();
         	
-        	int x = input.nextInt();
-        	int y = input.nextInt();
-        	
-        	network[x][y] = 1;
-        	network[y][x] = 1;
+        	net[x][y] = 1;
+        	net[y][x] = 1;
         }
-        
+                 
         bfs();
         
-        System.out.println(answer-1); // 자기 자신(1)은 뺀다
+        System.out.println(cnt);
+    	
+    }
+	
+	public static int bfs() {
+				
+	   Queue<Integer> list = new LinkedList<>();
+           list.add(1);
         
-        input.close();
-    }
-    
-    public static void bfs() {
-    	
-    	Queue<Integer> queue = new LinkedList<>();
-    	queue.add(1);
-    	
-    	while(!queue.isEmpty()) {
-    		int node = queue.poll();
-    		
-    		for(int i = 1; i < network.length; i++) {
-    			if(network[node][i] == 1 && check[i] == 0) {
-    				answer++;
-    				queue.add(i);
-    				check[i] = 1;
-    			}
-    		}
-    		
-    	}
-    }
+           cnt = 0;
+           while(!list.isEmpty()) {
+        	       	
+               int virus = list.poll();
+        	
+               for(int i = 1; i<net.length; i++) {
+        	   if(net[i][virus] == 1 && check[i] != true) {
+        		cnt++;
+        		list.add(i);
+        		check[i] = true;  
+        		check[virus] = true;       			
+        		}
+        	}
+        }
+        return cnt;
+	}
 }

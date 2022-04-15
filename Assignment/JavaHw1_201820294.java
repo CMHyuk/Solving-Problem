@@ -31,7 +31,8 @@ public class JavaHw1_201820294 {
 			
 			for(int j = str.length()-1; j>=0; j--) { //charAt(); 함수를 이용해 뒤부터 for문을 돌리며 거꾸로 출력					
 				System.out.print(str.charAt(j) + " ");
-			}			
+			}		
+			
 			System.out.println(); //하나 입력 끝날 때마다 줄바꿈
 		}
 	}

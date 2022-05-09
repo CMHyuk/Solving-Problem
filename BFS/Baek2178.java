@@ -30,7 +30,6 @@ public class Main {
                 maze[i][j] = (int)s.charAt(j) - 48;
             }
         }
-
         bfs(0, 0);
         System.out.println(maze[n-1][m-1]);
     }

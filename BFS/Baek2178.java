@@ -1,5 +1,3 @@
-package baekjoon;
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -13,6 +11,7 @@ public class Main {
     static int m;
     static int[][] maze;
     static boolean[][] check;
+    static Queue<Integer> queue = new LinkedList<>();
 
     public static void main(String[] args) {
 
@@ -30,13 +29,14 @@ public class Main {
                 maze[i][j] = (int)s.charAt(j) - 48;
             }
         }
+        queue.add(0);
+        queue.add(0);
         bfs(0, 0);
         System.out.println(maze[n-1][m-1]);
     }
 
     static void bfs(int a, int b) {
 
-        Queue<int[]> queue = new LinkedList<>();
         check[a][b] = true;
 
         for(int i = 0; i<4; i++) {
@@ -47,10 +47,13 @@ public class Main {
                 if(maze[x][y] == 1 && !check[x][y]) {
                     maze[x][y] = maze[a][b] + 1;
                     check[x][y] = true;
-                    queue.add(new int[]{x, y});
+                    queue.add(x);
+                    queue.add(y);
                 }
             }
         }
-
+        if(!queue.isEmpty()) {
+            bfs(queue.poll(), queue.poll());
+        }
     }
 }
